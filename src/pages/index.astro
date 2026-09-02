@@ -1,11 +1,45 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import { selectPublished } from '../lib/posts';
+
+const posts = selectPublished(await getCollection('blog'), import.meta.env.DEV);
+const recent = posts.slice(0, 5);
 ---
 
-<Base title="Eduardo Faleiro" description="Personal site of Eduardo Faleiro.">
-  <div class="prose">
+<Base
+  title="Eduardo Faleiro"
+  description="Personal site of Eduardo Faleiro — software engineer. Notes on the things I build."
+>
+  <section class="intro prose">
     <h1>Eduardo Faleiro</h1>
+    {/* TODO(eduardo): substituir por uma bio real de 2-3 linhas, em inglês. */}
+    <p>
+      Software engineer. I write here about the things I build and what I learn
+      along the way.
+    </p>
     <SocialLinks />
-  </div>
+  </section>
+
+  <section class="recent">
+    <h2>Recent posts</h2>
+    {recent.length === 0 && <p>No posts yet.</p>}
+    {recent.map((post) => <PostCard post={post} />)}
+    {posts.length > recent.length && <p><a href="/blog">All posts</a></p>}
+  </section>
 </Base>
+
+<style>
+  .intro {
+    margin-bottom: calc(3 * var(--space));
+  }
+
+  .recent h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fg-muted);
+  }
+</style>
