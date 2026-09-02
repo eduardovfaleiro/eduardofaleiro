@@ -1,0 +1,26 @@
+---
+import { social } from '../data/social';
+---
+
+<ul class="social">
+  {
+    social.map((link) => (
+      <li>
+        <a href={link.url} rel="me noopener" target="_blank">
+          {link.name}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>
