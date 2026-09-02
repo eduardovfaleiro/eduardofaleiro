@@ -1,43 +1,55 @@
-# Astro Starter Kit: Minimal
+# eduardofaleiro.me
 
-```sh
-npm create astro@latest -- --template minimal
+Personal site: short bio, social links, and a blog. Static site built with
+Astro, deployed on Vercel.
+
+## Local development
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run check    # type and template checking
+npm test         # unit tests for src/lib
+npm run build    # production build into dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Writing a post
 
-## 🚀 Project Structure
+1. Create `src/content/blog/<slug>.md`. The file name becomes the URL:
+   `my-post.md` is served at `/blog/my-post/`.
+2. Fill in the frontmatter:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```yaml
+---
+title: "Post title"
+description: "One or two sentences. Used in listings, meta tags and the RSS feed."
+pubDate: 2026-09-01
+tags: ["optional", "tags"]
+draft: false
+---
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+3. Write the body in Markdown.
+4. Commit and push to `main`. Vercel builds and publishes automatically.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+`draft: true` posts show up in `npm run dev` and are excluded from production
+builds and from the RSS feed.
 
-Any static assets, like images, can be placed in the `public/` directory.
+Invalid frontmatter fails the build with an explicit error instead of
+publishing a broken page.
 
-## 🧞 Commands
+## Deployment
 
-All commands are run from the root of the project, from a terminal:
+Push to `main` deploys to production. Every other branch gets a preview URL.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### DNS
 
-## 👀 Want to learn more?
+In the domain registrar for `eduardofaleiro.me`:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Type | Name | Value |
+|---|---|---|
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
+
+Confirm these values against the exact records Vercel shows under
+**Project → Settings → Domains**, which are authoritative.
