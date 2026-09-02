@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { selectPublished } from '../../lib/posts';
+
+const posts = selectPublished(await getCollection('blog'), import.meta.env.DEV);
+---
+
+<Base title="Blog — Eduardo Faleiro" description="Posts by Eduardo Faleiro.">
+  <h1>Blog</h1>
+  {posts.length === 0 && <p>No posts yet.</p>}
+  {posts.map((post) => <PostCard post={post} />)}
+</Base>
