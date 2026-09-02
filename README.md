@@ -24,10 +24,15 @@ npm run build    # production build into dist/
 title: "Post title"
 description: "One or two sentences. Used in listings, meta tags and the RSS feed."
 pubDate: 2026-09-01
+updatedDate: 2026-09-15
 tags: ["optional", "tags"]
 draft: false
+heroImage: "/images/my-post/cover.png"
 ---
 ```
+
+`updatedDate` and `heroImage` are both optional. `heroImage` is a path into
+`public/`, not a path relative to the post file.
 
 3. Write the body in Markdown.
 4. Commit and push to `main`. Vercel builds and publishes automatically.
@@ -36,7 +41,8 @@ draft: false
 builds and from the RSS feed.
 
 Invalid frontmatter fails the build with an explicit error instead of
-publishing a broken page.
+publishing a broken page. CI runs `npm run check && npm test && npm run build`
+on every push, so that's what gates it.
 
 ## Deployment
 

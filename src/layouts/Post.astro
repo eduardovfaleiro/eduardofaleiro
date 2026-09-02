@@ -17,7 +17,11 @@ const format = (date: Date) =>
   });
 ---
 
-<Base title={`${post.data.title} — Eduardo Faleiro`} description={post.data.description}>
+<Base
+  title={`${post.data.title} — Eduardo Faleiro`}
+  description={post.data.description}
+  ogImage={post.data.heroImage}
+>
   <article class="prose">
     <h1>{post.data.title}</h1>
 
