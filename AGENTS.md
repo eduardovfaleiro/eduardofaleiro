@@ -1,4 +1,4 @@
-# eduardofaleiro.me
+# eduardofaleiro.dev
 
 A static Astro site: personal blog plus social links, deployed on Vercel.
 

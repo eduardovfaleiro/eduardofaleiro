@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://eduardofaleiro.me',
+  site: 'https://eduardofaleiro.dev',
   integrations: [sitemap()],
 });

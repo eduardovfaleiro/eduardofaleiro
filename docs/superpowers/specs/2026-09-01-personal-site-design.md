@@ -1,4 +1,4 @@
-# Site pessoal eduardofaleiro.me — design
+# Site pessoal eduardofaleiro.dev — design
 
 Data: 2026-09-01
 Status: aprovado (design); pendente plano de implementação
@@ -116,7 +116,7 @@ mecanismo de correção do projeto.
   como imagem padrão.
 - Sitemap via `@astrojs/sitemap`; `robots.txt` liberando tudo e apontando o
   sitemap.
-- `site` configurado em `astro.config.mjs` como `https://eduardofaleiro.me`,
+- `site` configurado em `astro.config.mjs` como `https://eduardofaleiro.dev`,
   necessário para canonical, sitemap e RSS gerarem URLs absolutas.
 
 ## Verificação
@@ -146,7 +146,7 @@ necessária é a 404.
 1. `git init` + primeiro commit; repositório no GitHub.
 2. Projeto na Vercel conectado ao repo. Push na `main` publica; branches geram
    preview.
-3. Domínio `eduardofaleiro.me` apontado para a Vercel — **passo do Eduardo**,
+3. Domínio `eduardofaleiro.dev` apontado para a Vercel — **passo do Eduardo**,
    por envolver contas dele. A implementação entrega o projeto pronto até esse
    ponto, com os registros DNS exatos documentados no README.
 

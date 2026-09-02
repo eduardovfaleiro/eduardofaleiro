@@ -1,4 +1,4 @@
-# eduardofaleiro.me
+# eduardofaleiro.dev
 
 Personal site: short bio, social links, and a blog. Static site built with
 Astro, deployed on Vercel.
@@ -50,7 +50,7 @@ Push to `main` deploys to production. Every other branch gets a preview URL.
 
 ### DNS
 
-In the domain registrar for `eduardofaleiro.me`:
+In the domain registrar for `eduardofaleiro.dev`:
 
 | Type | Name | Value |
 |---|---|---|

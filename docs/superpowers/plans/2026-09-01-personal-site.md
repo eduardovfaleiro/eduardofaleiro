@@ -1,4 +1,4 @@
-# Site pessoal eduardofaleiro.me — plano de implementação
+# Site pessoal eduardofaleiro.dev — plano de implementação
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -15,7 +15,7 @@
 - Todo o **conteúdo visível do site é em inglês** (textos de interface, bio, posts, `lang="en"`). Este plano e os commits são em português.
 - Node 22 (ambiente atual: v22.23.1, npm 10.9.8).
 - TypeScript em modo `strict`.
-- `site` em `astro.config.mjs` é exatamente `https://eduardofaleiro.me`.
+- `site` em `astro.config.mjs` é exatamente `https://eduardofaleiro.dev`.
 - Sem Tailwind, sem framework de UI, sem JS no cliente. CSS puro com custom properties.
 - Zero dependências além das listadas em Tech Stack.
 - Rascunhos (`draft: true`) nunca aparecem em build de produção nem no RSS.
@@ -63,7 +63,7 @@
 O diretório do projeto já contém `docs/` e `.git/`, então não scaffoldamos direto nele.
 
 ```bash
-cd /home/bridge/Documents/personal-projects/eduardofaleiro.me
+cd /home/bridge/Documents/personal-projects/eduardofaleiro
 SCRATCH="$(mktemp -d)"
 npm create astro@latest "$SCRATCH/site" -- \
   --template minimal --install --no-git --typescript strict --skip-houston
@@ -92,7 +92,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://eduardofaleiro.me',
+  site: 'https://eduardofaleiro.dev',
   integrations: [sitemap()],
 });
 ```
@@ -1145,7 +1145,7 @@ Crie `public/robots.txt`:
 User-agent: *
 Allow: /
 
-Sitemap: https://eduardofaleiro.me/sitemap-index.xml
+Sitemap: https://eduardofaleiro.dev/sitemap-index.xml
 ```
 
 - [ ] **Step 3: Criar o favicon**
@@ -1171,7 +1171,7 @@ img = Image.new("RGB", (1200, 630), "#121211")
 d = ImageDraw.Draw(img)
 d.rectangle([0, 596, 1200, 630], fill="#1a4fd6")
 d.text((80, 250), "Eduardo Faleiro", fill="#ececeb")
-d.text((80, 300), "eduardofaleiro.me", fill="#a3a39d")
+d.text((80, 300), "eduardofaleiro.dev", fill="#a3a39d")
 img.save("public/og-default.png")
 PY
 python3 -c "from PIL import Image; print(Image.open('public/og-default.png').size)"
@@ -1240,7 +1240,7 @@ O restante do arquivo (de `<body>` até `</html>`) fica inalterado.
 npm run check && npm run build
 grep -q '<item>' dist/rss.xml && echo "OK feed tem item"
 grep -q 'Draft example' dist/rss.xml && echo "FALHA: rascunho no feed" || echo "OK rascunho fora do feed"
-grep -q 'https://eduardofaleiro.me/blog/hello-world/' dist/rss.xml && echo "OK link absoluto"
+grep -q 'https://eduardofaleiro.dev/blog/hello-world/' dist/rss.xml && echo "OK link absoluto"
 test -f dist/sitemap-index.xml && echo "OK sitemap"
 grep -q 'og:image' dist/index.html && echo "OK open graph"
 grep -q 'rel="canonical"' dist/blog/hello-world/index.html && echo "OK canonical"
@@ -1272,7 +1272,7 @@ git commit -m "feat: RSS, sitemap, robots, favicon e metadados de compartilhamen
 Crie `README.md`:
 
 ```markdown
-# eduardofaleiro.me
+# eduardofaleiro.dev
 
 Personal site: short bio, social links, and a blog. Static site built with
 Astro, deployed on Vercel.
@@ -1318,7 +1318,7 @@ Push to `main` deploys to production. Every other branch gets a preview URL.
 
 ### DNS
 
-In the domain registrar for `eduardofaleiro.me`:
+In the domain registrar for `eduardofaleiro.dev`:
 
 | Type | Name | Value |
 |---|---|---|
@@ -1332,7 +1332,7 @@ Confirm these values against the exact records Vercel shows under
 - [ ] **Step 2: Publicar o repositório no GitHub**
 
 ```bash
-gh repo create eduardofaleiro.me --private --source=. --remote=origin --push
+gh repo create eduardofaleiro.dev --private --source=. --remote=origin --push
 ```
 
 Se o `gh` não estiver autenticado, rode `gh auth login` antes (é um comando interativo — o Eduardo executa).
@@ -1347,11 +1347,11 @@ Esperado: o workflow `CI` com conclusão `success`.
 
 - [ ] **Step 4: Criar o projeto na Vercel**
 
-Passo do Eduardo, no navegador: em vercel.com, **Add New → Project**, importar o repositório `eduardofaleiro.me`. A Vercel detecta Astro sozinha — framework preset `Astro`, build `npm run build`, output `dist`. Confirmar e fazer o primeiro deploy.
+Passo do Eduardo, no navegador: em vercel.com, **Add New → Project**, importar o repositório `eduardofaleiro.dev`. A Vercel detecta Astro sozinha — framework preset `Astro`, build `npm run build`, output `dist`. Confirmar e fazer o primeiro deploy.
 
 - [ ] **Step 5: Apontar o domínio**
 
-Passo do Eduardo: em **Project → Settings → Domains**, adicionar `eduardofaleiro.me`, e criar no registrador os registros que a Vercel exibir (conferindo contra a tabela do README).
+Passo do Eduardo: em **Project → Settings → Domains**, adicionar `eduardofaleiro.dev`, e criar no registrador os registros que a Vercel exibir (conferindo contra a tabela do README).
 
 - [ ] **Step 6: Trocar os placeholders por conteúdo real**
 
