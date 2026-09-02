@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+
+const format = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<Base title={`${post.data.title} — Eduardo Faleiro`} description={post.data.description}>
+  <article class="prose">
+    <h1>{post.data.title}</h1>
+
+    <p class="meta">
+      <time datetime={post.data.pubDate.toISOString()}>{format(post.data.pubDate)}</time>
+      {post.data.updatedDate && <span> · updated {format(post.data.updatedDate)}</span>}
+      {post.data.tags.length > 0 && <span> · {post.data.tags.join(', ')}</span>}
+    </p>
+
+    {post.data.heroImage && <img src={post.data.heroImage} alt="" />}
+
+    <slot />
+  </article>
+</Base>
+
+<style>
+  .meta {
+    margin-top: -0.5rem;
+    color: var(--fg-muted);
+    font-size: 0.9rem;
+  }
+</style>
