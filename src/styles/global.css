@@ -1,0 +1,136 @@
+:root {
+  --bg: #fbfbfa;
+  --fg: #1b1b1a;
+  --fg-muted: #5c5c58;
+  --accent: #1a4fd6;
+  --border: #e2e2dd;
+  --space: 1rem;
+  --radius: 6px;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121211;
+    --fg: #ececeb;
+    --fg-muted: #a3a39d;
+    --accent: #8fb0ff;
+    --border: #2c2c2a;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--space);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.container {
+  width: min(100% - 2 * var(--space), 48rem);
+  margin-inline: auto;
+}
+
+.prose {
+  max-width: 65ch;
+}
+
+.prose h2,
+.prose h3 {
+  line-height: 1.25;
+  margin-top: 2em;
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-left: var(--space);
+  border-left: 3px solid var(--border);
+  color: var(--fg-muted);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: var(--space);
+  top: var(--space);
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  z-index: 10;
+}
+
+.site-header,
+.site-footer {
+  border-color: var(--border);
+  border-style: solid;
+}
+
+.site-header {
+  border-width: 0 0 1px;
+  padding-block: var(--space);
+  margin-bottom: calc(2 * var(--space));
+}
+
+.site-footer {
+  border-width: 1px 0 0;
+  padding-block: var(--space);
+  margin-top: calc(3 * var(--space));
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.site-header > .container,
+.site-footer > .container {
+  display: flex;
+  gap: var(--space);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-name {
+  font-weight: 600;
+  color: var(--fg);
+  text-decoration: none;
+}
