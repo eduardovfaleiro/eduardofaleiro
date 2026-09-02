@@ -3,10 +3,8 @@ export type SocialLink = {
   url: string;
 };
 
-// TODO(eduardo): substituir pelos perfis reais antes de apontar o domínio.
-// A terceira entrada é um provisório — trocar por YouTube ou mailto: se preferir.
 export const social: SocialLink[] = [
-  { name: 'GitHub', url: 'https://github.com/CHANGE-ME' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/CHANGE-ME' },
-  { name: 'Instagram', url: 'https://www.instagram.com/CHANGE-ME' },
+  { name: 'GitHub', url: 'https://github.com/eduardovfaleiro' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/eduardo--faleiro' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@eduardovfaleiro' },
 ];
