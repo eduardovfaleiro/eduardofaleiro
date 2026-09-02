@@ -11,6 +11,10 @@ const { title, description, ogImage = '/og-default.png' } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage, Astro.site);
+
+// On the home page the <h1> already carries the name, so the header would be
+// repeating it — and linking to the page you are already on.
+const isHome = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
@@ -18,6 +22,14 @@ const ogImageUrl = new URL(ogImage, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -47,7 +59,7 @@ const ogImageUrl = new URL(ogImage, Astro.site);
 
     <header class="site-header">
       <div class="container">
-        <a class="site-name" href="/">Eduardo Faleiro</a>
+        {isHome ? <span /> : <a class="site-name" href="/">Eduardo Faleiro</a>}
         <nav aria-label="Main">
           <a href="/blog">Blog</a>
         </nav>
@@ -60,7 +72,8 @@ const ogImageUrl = new URL(ogImage, Astro.site);
 
     <footer class="site-footer">
       <div class="container">
-        <p>&copy; {new Date().getFullYear()} Eduardo Faleiro</p>
+        <p>&copy; {new Date().getFullYear()}</p>
+        <a href="/rss.xml">RSS</a>
       </div>
     </footer>
   </body>
