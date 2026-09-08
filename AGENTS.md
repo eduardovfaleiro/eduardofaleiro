@@ -26,3 +26,27 @@ the header, and the footer.
 
 Posts with `draft: true` show in `npm run dev` and never in production or
 the RSS feed.
+
+## Languages
+
+Every post declares `lang: en` or `lang: pt` — the field is required, so a
+post without it fails the build. English lives at the root (`/blog/...`);
+Portuguese lives under `/pt/` (`/pt/blog/...`). Each language has its own
+index and its own RSS feed.
+
+Translating is optional and there is no fallback: a post with no counterpart
+simply doesn't appear in the other language. The translation declares the
+link with `translationKey: <id of the English post>`; the English post
+declares nothing, because its key is its own id.
+
+`src/lib/posts.ts` owns everything language-related — `byLang`,
+`findTranslation`, `postHref`, `rssHref`. Always pass it a list that already
+went through `selectPublished`: that's what keeps a post whose translation is
+still a draft from linking to a page that doesn't exist.
+
+The chrome (header, footer, home, 404) stays in English by design; only post
+content and dates are localized. `@astrojs/sitemap`'s `i18n` option is
+deliberately unused — it assumes both languages share a slug, which is not
+the case here. hreflang comes from `Base.astro`, which knows the real pair.
+
+See `docs/superpowers/specs/2026-09-08-bilingual-posts-design.md`.

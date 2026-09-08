@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { LOCALES, postHref } from '../lib/posts';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -7,7 +8,7 @@ interface Props {
 
 const { post } = Astro.props;
 
-const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
+const formattedDate = post.data.pubDate.toLocaleDateString(LOCALES[post.data.lang], {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -17,7 +18,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
 
 <article class="card">
   <h2>
-    <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+    <a href={postHref(post)}>{post.data.title}</a>
     {post.data.draft && <span class="draft">draft</span>}
   </h2>
   <p class="meta">

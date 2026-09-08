@@ -28,17 +28,46 @@ updatedDate: 2026-09-15
 tags: ["optional", "tags"]
 draft: false
 heroImage: "/images/my-post/cover.png"
+lang: en
 ---
 ```
 
-`updatedDate` and `heroImage` are both optional. `heroImage` is a path into
-`public/`, not a path relative to the post file.
+`lang` is required and must be `en` or `pt`. `updatedDate` and `heroImage`
+are both optional. `heroImage` is a path into `public/`, not a path relative
+to the post file.
 
 3. Write the body in Markdown.
 4. Commit and push to `main`. Vercel builds and publishes automatically.
 
 `draft: true` posts show up in `npm run dev` and are excluded from production
 builds and from the RSS feed.
+
+## Translating a post
+
+English posts live at `/blog/<slug>/`, Portuguese ones at `/pt/blog/<slug>/`.
+Each language has its own index and RSS feed (`/rss.xml` and `/pt/rss.xml`).
+
+To translate a post, add a second file with its own Portuguese slug, and point
+it at the English post with `translationKey`:
+
+```yaml
+# src/content/blog/ola-mundo.md  ->  /pt/blog/ola-mundo/
+---
+title: "Olá, mundo"
+description: "Por que eu construí este site."
+pubDate: 2026-09-02
+tags: ["meta"]
+lang: pt
+translationKey: hello-world     # id (file name) of the English post
+---
+```
+
+The English post needs no `translationKey` — its key is its own id. Once both
+sides exist, an `EN | PT` switcher appears in the header of both pages.
+
+Translating is optional. A post that exists in one language only is fine: it
+just doesn't show up in the other language's index, and no switcher appears.
+The same holds while the counterpart is still `draft: true`.
 
 Invalid frontmatter fails the build with an explicit error instead of
 publishing a broken page. CI runs `npm run check && npm test && npm run build`

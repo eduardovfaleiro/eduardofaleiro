@@ -1,16 +1,42 @@
 ---
 import '../styles/global.css';
+import { DEFAULT_LANG, HTML_LANG, rssHref, type Lang } from '../lib/posts';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  lang?: Lang;
+  /** URL da mesma página no outro idioma. Ausente, o seletor não aparece. */
+  translationHref?: string;
 }
 
-const { title, description, ogImage = '/og-default.png' } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = '/og-default.png',
+  lang = DEFAULT_LANG,
+  translationHref,
+} = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage, Astro.site);
+
+const otherLang: Lang = lang === 'en' ? 'pt' : 'en';
+const feed = rssHref(lang);
+
+// hreflang só faz sentido quando as duas versões existem de fato: apontar para
+// uma tradução ausente é oferecer um 404 ao buscador.
+const alternates = translationHref
+  ? [
+      { hreflang: HTML_LANG[lang], href: canonical.href },
+      { hreflang: HTML_LANG[otherLang], href: new URL(translationHref, Astro.site).href },
+      {
+        hreflang: 'x-default',
+        href: (lang === DEFAULT_LANG ? canonical : new URL(translationHref, Astro.site)).href,
+      },
+    ]
+  : [];
 
 // On the home page the <h1> already carries the name, so the header would be
 // repeating it — and linking to the page you are already on.
@@ -18,7 +44,7 @@ const isHome = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={HTML_LANG[lang]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,8 +65,12 @@ const isHome = Astro.url.pathname === '/';
       rel="alternate"
       type="application/rss+xml"
       title="Eduardo Faleiro"
-      href="/rss.xml"
+      href={feed}
     />
+
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Eduardo Faleiro" />
@@ -48,6 +78,7 @@ const isHome = Astro.url.pathname === '/';
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -62,6 +93,23 @@ const isHome = Astro.url.pathname === '/';
         {isHome ? <span /> : <a class="site-name" href="/">Eduardo Faleiro</a>}
         <nav aria-label="Main">
           <a href="/blog">Blog</a>
+          {translationHref && (
+            <span class="lang-switch">
+              {lang === 'en' ? (
+                <>
+                  <span aria-current="true">EN</span>
+                  <span class="sep" aria-hidden="true">|</span>
+                  <a href={translationHref} hreflang="pt-BR" lang="pt-BR">PT</a>
+                </>
+              ) : (
+                <>
+                  <a href={translationHref} hreflang="en" lang="en">EN</a>
+                  <span class="sep" aria-hidden="true">|</span>
+                  <span aria-current="true">PT</span>
+                </>
+              )}
+            </span>
+          )}
         </nav>
       </div>
     </header>
@@ -73,7 +121,7 @@ const isHome = Astro.url.pathname === '/';
     <footer class="site-footer">
       <div class="container">
         <p>&copy; {new Date().getFullYear()}</p>
-        <a href="/rss.xml">RSS</a>
+        <a href={feed}>RSS</a>
       </div>
     </footer>
   </body>

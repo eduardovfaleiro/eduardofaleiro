@@ -135,3 +135,25 @@ pre {
   color: var(--fg);
   text-decoration: none;
 }
+
+.site-header nav {
+  display: flex;
+  gap: var(--space);
+  align-items: baseline;
+}
+
+.lang-switch {
+  display: inline-flex;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.lang-switch [aria-current] {
+  color: var(--fg-muted);
+}
+
+.lang-switch .sep {
+  color: var(--border);
+}

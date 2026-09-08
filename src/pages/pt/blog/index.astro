@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { blogIndexHref, byLang, selectPublished } from '../../../lib/posts';
+
+const published = selectPublished(await getCollection('blog'), import.meta.env.DEV);
+const posts = byLang(published, 'pt');
+
+const translationHref =
+  byLang(published, 'en').length > 0 ? blogIndexHref('en') : undefined;
+---
+
+<Base
+  title="Blog — Eduardo Faleiro"
+  description="Posts de Eduardo Faleiro, em português."
+  lang="pt"
+  translationHref={translationHref}
+>
+  <h1>Blog</h1>
+  {posts.length === 0 && <p>Nenhum post ainda.</p>}
+  {posts.map((post) => <PostCard post={post} />)}
+</Base>

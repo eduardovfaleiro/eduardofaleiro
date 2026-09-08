@@ -1,33 +1,41 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Base from './Base.astro';
+import { LOCALES } from '../lib/posts';
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  /** URL da tradução deste post, quando ela existe. */
+  translationHref?: string;
 }
 
-const { post } = Astro.props;
+const { post, translationHref } = Astro.props;
+const lang = post.data.lang;
 
 const format = (date: Date) =>
-  date.toLocaleDateString('en-US', {
+  date.toLocaleDateString(LOCALES[lang], {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     timeZone: 'UTC',
   });
+
+const updatedLabel = lang === 'pt' ? 'atualizado em' : 'updated';
 ---
 
 <Base
   title={`${post.data.title} — Eduardo Faleiro`}
   description={post.data.description}
   ogImage={post.data.heroImage}
+  lang={lang}
+  translationHref={translationHref}
 >
   <article class="prose">
     <h1>{post.data.title}</h1>
 
     <p class="meta">
       <time datetime={post.data.pubDate.toISOString()}>{format(post.data.pubDate)}</time>
-      {post.data.updatedDate && <span> · updated {format(post.data.updatedDate)}</span>}
+      {post.data.updatedDate && <span> · {updatedLabel} {format(post.data.updatedDate)}</span>}
       {post.data.tags.length > 0 && <span> · {post.data.tags.join(', ')}</span>}
     </p>
 

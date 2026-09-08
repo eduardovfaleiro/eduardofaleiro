@@ -2,12 +2,22 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
-import { selectPublished } from '../../lib/posts';
+import { blogIndexHref, byLang, selectPublished } from '../../lib/posts';
 
-const posts = selectPublished(await getCollection('blog'), import.meta.env.DEV);
+const published = selectPublished(await getCollection('blog'), import.meta.env.DEV);
+const posts = byLang(published, 'en');
+
+// O seletor só aparece quando há de fato posts em português para ver.
+const translationHref =
+  byLang(published, 'pt').length > 0 ? blogIndexHref('pt') : undefined;
 ---
 
-<Base title="Blog — Eduardo Faleiro" description="Posts by Eduardo Faleiro.">
+<Base
+  title="Blog — Eduardo Faleiro"
+  description="Posts by Eduardo Faleiro."
+  lang="en"
+  translationHref={translationHref}
+>
   <h1>Blog</h1>
   {posts.length === 0 && <p>No posts yet.</p>}
   {posts.map((post) => <PostCard post={post} />)}

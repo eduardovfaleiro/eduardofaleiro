@@ -3,6 +3,7 @@ title: "Hello, world"
 description: "Why I built this site, and what I plan to write here."
 pubDate: 2026-09-02
 tags: ["meta"]
+lang: en
 ---
 
 I spend most of my time making systems faster: query plans, indexes, and the

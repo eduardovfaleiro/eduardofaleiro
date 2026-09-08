@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import Post from '../../../layouts/Post.astro';
+import {
+  buildTranslations,
+  byLang,
+  findTranslation,
+  postHref,
+  selectPublished,
+} from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const published = selectPublished(await getCollection('blog'), import.meta.env.DEV);
+
+  buildTranslations(published);
+
+  return byLang(published, 'pt').map((post) => ({
+    params: { slug: post.id },
+    props: { post, translation: findTranslation(published, post) },
+  }));
+}
+
+const { post, translation } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Post post={post} translationHref={translation && postHref(translation)}>
+  <Content />
+</Post>

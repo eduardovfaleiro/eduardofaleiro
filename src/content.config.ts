@@ -13,6 +13,12 @@ const blog = defineCollection({
       tags: z.array(z.string()).default([]),
       draft: z.boolean().default(false),
       heroImage: z.string().optional(),
+      // Obrigatório de propósito: um post sem `lang` falha o build em vez de
+      // ter um idioma escolhido por default.
+      lang: z.enum(['en', 'pt']),
+      // Liga um post à sua tradução. Ausente, vale o próprio id — então só a
+      // tradução declara o vínculo, e ele vale nos dois sentidos.
+      translationKey: z.string().optional(),
       // Astro's glob loader reads this raw frontmatter key to override the
       // generated entry id. It must stay valid under `.strict()`.
       slug: z.string().optional(),
