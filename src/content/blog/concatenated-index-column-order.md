@@ -1,5 +1,5 @@
 ---
-title: "Column order in a concatenated index"
+title: "Why your composite index isn't making the query fast"
 description: "The same two columns, in the two possible orders, over 10 million rows: 17 ms against 0.060 ms. Three execution plans, and why the gap is not a rounding error."
 pubDate: 2026-09-08
 tags: ["postgresql", "indexing"]

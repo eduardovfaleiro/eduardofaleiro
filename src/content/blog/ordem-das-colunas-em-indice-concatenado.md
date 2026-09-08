@@ -1,5 +1,5 @@
 ---
-title: "A ordem das colunas em um índice concatenado"
+title: "Por que seu índice composto não está deixando a consulta rápida"
 description: "As mesmas duas colunas, nas duas ordens possíveis, em 10 milhões de linhas: 17 ms contra 0,060 ms. Três planos de execução, e por que a diferença não é arredondamento."
 pubDate: 2026-09-08
 tags: ["postgresql", "indexing"]
