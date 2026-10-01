@@ -1,7 +1,7 @@
 ---
-title: "Statement pagination: OFFSET vs. keyset pagination"
+title: "Optimize your queries by replacing OFFSET with keyset pagination"
 description: "A benchmark comparing OFFSET and keyset pagination over a whale account's statement, from the first page to an offset of 4,950 rows."
-pubDate: 2026-10-13
+pubDate: 2026-10-01T20:20:00-03:00
 tags: ["postgresql", "pagination"]
 lang: en
 ---

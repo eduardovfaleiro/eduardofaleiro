@@ -1,7 +1,7 @@
 ---
-title: "Paginação do extrato: OFFSET vs. keyset pagination"
+title: "Otimize suas consultas trocando OFFSET por keyset pagination"
 description: "Um benchmark comparando OFFSET e keyset pagination no extrato de uma conta whale, da primeira página até um salto de 4.950 linhas."
-pubDate: 2026-10-13
+pubDate: 2026-10-01T20:20:00-03:00
 tags: ["postgresql", "pagination"]
 lang: pt
 translationKey: "statement-pagination-offset-vs-keyset-pagination"
