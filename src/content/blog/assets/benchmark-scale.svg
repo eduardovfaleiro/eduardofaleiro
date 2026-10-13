@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" role="img" aria-labelledby="title desc">
+  <title id="title">Query time at three table sizes</title>
+  <desc id="desc">On a logarithmic scale, sequential scan time rises from 32.864 milliseconds at 1 million rows to 936.632 milliseconds at 50 million rows. Index scan time stays between 0.012 and 0.015 milliseconds.</desc>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #f7f8f9;
+      --foreground: #15181c;
+      --muted: #5a636e;
+      --grid: #d5dbe0;
+      --scan: #b45309;
+      --index: #0f6e63;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #101316;
+        --foreground: #e8ecef;
+        --muted: #98a3ae;
+        --grid: #303840;
+        --scan: #f59e0b;
+        --index: #4ecdb8;
+      }
+    }
+
+    text {
+      fill: var(--foreground);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    .muted { fill: var(--muted); }
+    .label { font-size: 13px; font-weight: 600; }
+    .grid { stroke: var(--grid); stroke-width: 1; }
+    .axis { stroke: var(--muted); stroke-width: 1.25; }
+    .scan-line { fill: none; stroke: var(--scan); stroke-width: 3; }
+    .index-line { fill: none; stroke: var(--index); stroke-width: 3; }
+    .scan-point { fill: var(--background); stroke: var(--scan); stroke-width: 3; }
+    .index-point { fill: var(--background); stroke: var(--index); stroke-width: 3; }
+  </style>
+
+  <rect width="800" height="430" rx="6" fill="var(--background)" />
+
+  <text x="96" y="28" font-size="16" font-weight="600">Execution time (ms, logarithmic scale)</text>
+
+  <g aria-hidden="true">
+    <line class="grid" x1="96" y1="58" x2="742" y2="58" />
+    <line class="grid" x1="96" y1="116" x2="742" y2="116" />
+    <line class="grid" x1="96" y1="174" x2="742" y2="174" />
+    <line class="grid" x1="96" y1="232" x2="742" y2="232" />
+    <line class="grid" x1="96" y1="290" x2="742" y2="290" />
+    <line class="grid" x1="96" y1="348" x2="742" y2="348" />
+
+    <line class="axis" x1="96" y1="58" x2="96" y2="348" />
+    <line class="axis" x1="96" y1="348" x2="742" y2="348" />
+
+    <text class="muted" x="82" y="63" text-anchor="end">1,000</text>
+    <text class="muted" x="82" y="121" text-anchor="end">100</text>
+    <text class="muted" x="82" y="179" text-anchor="end">10</text>
+    <text class="muted" x="82" y="237" text-anchor="end">1</text>
+    <text class="muted" x="82" y="295" text-anchor="end">0.1</text>
+    <text class="muted" x="82" y="353" text-anchor="end">0.01</text>
+
+    <text x="190" y="379" text-anchor="middle">1M rows</text>
+    <text x="418" y="379" text-anchor="middle">10M rows</text>
+    <text x="646" y="379" text-anchor="middle">50M rows</text>
+  </g>
+
+  <path class="scan-line" d="M190 144 L418 91 L646 60" />
+  <circle class="scan-point" cx="190" cy="144" r="6" />
+  <circle class="scan-point" cx="418" cy="91" r="6" />
+  <circle class="scan-point" cx="646" cy="60" r="6" />
+  <text class="label" x="190" y="130" text-anchor="middle">32.864</text>
+  <text class="label" x="418" y="77" text-anchor="middle">271.706</text>
+  <text class="label" x="646" y="84" text-anchor="middle">936.632</text>
+
+  <path class="index-line" d="M190 340 L418 343 L646 338" />
+  <circle class="index-point" cx="190" cy="340" r="6" />
+  <circle class="index-point" cx="418" cy="343" r="6" />
+  <circle class="index-point" cx="646" cy="338" r="6" />
+  <text class="label" x="190" y="326" text-anchor="middle">0.014</text>
+  <text class="label" x="418" y="329" text-anchor="middle">0.012</text>
+  <text class="label" x="646" y="324" text-anchor="middle">0.015</text>
+
+  <g transform="translate(236 407)">
+    <line class="scan-line" x1="0" y1="-5" x2="28" y2="-5" />
+    <circle class="scan-point" cx="14" cy="-5" r="4" />
+    <text x="38" y="0">Seq Scan</text>
+    <line class="index-line" x1="176" y1="-5" x2="204" y2="-5" />
+    <circle class="index-point" cx="190" cy="-5" r="4" />
+    <text x="214" y="0">Index Scan</text>
+  </g>
+</svg>
